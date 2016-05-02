@@ -8,6 +8,7 @@ import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import forms._
 import models.User
 import play.api.i18n.MessagesApi
+import utils._
 
 import scala.concurrent.Future
 
@@ -31,6 +32,34 @@ class ApplicationController @Inject() (
    */
   def index = SecuredAction.async { implicit request =>
     Future.successful(Ok(views.html.home(request.identity)))
+  }
+
+  /**
+   * Required roles : admin
+   */
+  def adminArea = SecuredAction(WithRole("admin")).async { implicit request =>
+    Future.successful(Ok(views.html.adminArea(request.identity)))
+  }
+
+  /**
+   * Required roles : user
+   */
+  def userArea = SecuredAction(WithRole("user")).async { implicit request =>
+    Future.successful(Ok(views.html.userArea(request.identity)))
+  }
+
+  /**
+   * Required roles : admin and user
+   */
+  def userAndAdminArea = SecuredAction(WithRoles("admin", "user")).async { implicit request =>
+    Future.successful(Ok(views.html.userAndAdminArea(request.identity)))
+  }
+
+  /**
+   * Required roles : admin or user
+   */
+  def userOrAdminArea = SecuredAction(WithRole("admin", "user")).async { implicit request =>
+    Future.successful(Ok(views.html.userOrAdminArea(request.identity)))
   }
 
   /**
@@ -65,7 +94,6 @@ class ApplicationController @Inject() (
   def signOut = SecuredAction.async { implicit request =>
     val result = Redirect(routes.ApplicationController.index())
     env.eventBus.publish(LogoutEvent(request.identity, request, request2Messages))
-
     env.authenticatorService.discard(request.authenticator, result)
   }
 }

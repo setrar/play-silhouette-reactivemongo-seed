@@ -1,0 +1,5 @@
+@(user: models.User)(implicit messages: Messages)
+
+@main("User or admin area", Some(user)) {
+	User or admin area : @user.fullName
+}

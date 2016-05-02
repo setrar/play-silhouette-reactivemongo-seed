@@ -6,6 +6,7 @@ user.exists = There already exists a user with this email!
 could.not.authenticate = Could not authenticate with social provider! Please try again!
 
 home.title = Silhouette - Home
+dashboard.title = Silhouette - Dashboard
 sign.up.title = Silhouette - Sign Up
 sign.in.title = Silhouette - Sign In
 

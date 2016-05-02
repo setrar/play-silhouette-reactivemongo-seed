@@ -1,0 +1,4 @@
+@(anyOf: String*)(body: Html)(implicit user: User)
+@if(utils.WithRole.isAuthorized(user, anyOf:_*)) {
+	@body
+}

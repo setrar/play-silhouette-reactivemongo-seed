@@ -59,7 +59,8 @@ class SignUpController @Inject() (
               lastName = Some(data.lastName),
               fullName = Some(data.firstName + " " + data.lastName),
               email = Some(data.email),
-              avatarURL = None
+              avatarURL = None,
+              roles = List("user")
             )
             for {
               avatar <- avatarService.retrieveURL(data.email)

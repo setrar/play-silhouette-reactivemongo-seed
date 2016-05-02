@@ -4,6 +4,13 @@
 
 # Home page
 GET         /                                controllers.ApplicationController.index
+
+# A Role needed for the pages bellow
+GET			/adminArea                       controllers.ApplicationController.adminArea
+GET			/userArea                        controllers.ApplicationController.userArea
+GET			/userAndAdminArea                controllers.ApplicationController.userAndAdminArea
+GET			/userOrAdminArea                 controllers.ApplicationController.userOrAdminArea
+
 GET         /signIn                          controllers.ApplicationController.signIn
 GET         /signUp                          controllers.ApplicationController.signUp
 GET         /signOut                         controllers.ApplicationController.signOut
