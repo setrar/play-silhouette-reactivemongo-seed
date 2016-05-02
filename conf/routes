@@ -11,6 +11,8 @@ GET			/userArea                        controllers.ApplicationController.userAre
 GET			/userAndAdminArea                controllers.ApplicationController.userAndAdminArea
 GET			/userOrAdminArea                 controllers.ApplicationController.userOrAdminArea
 
+GET			/denied							 controllers.ApplicationController.accessDenied
+
 GET         /signIn                          controllers.ApplicationController.signIn
 GET         /signUp                          controllers.ApplicationController.signUp
 GET         /signOut                         controllers.ApplicationController.signOut

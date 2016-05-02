@@ -96,4 +96,11 @@ class ApplicationController @Inject() (
     env.eventBus.publish(LogoutEvent(request.identity, request, request2Messages))
     env.authenticatorService.discard(request.authenticator, result)
   }
+
+  /**
+   * Shows an error page when the user tries to get to an area without the necessary roles.
+   */
+  def accessDenied = UserAwareAction.async { implicit request =>
+    Future.successful(Ok(views.html.accessDenied()))
+  }
 }
