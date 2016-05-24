@@ -1,8 +1,8 @@
 package models.daos
 
 import com.mohiva.play.silhouette.api.LoginInfo
-import com.mohiva.play.silhouette.impl.daos.DelegableAuthInfoDAO
 import com.mohiva.play.silhouette.impl.providers.OAuth2Info
+import com.mohiva.play.silhouette.persistence.daos.DelegableAuthInfoDAO
 import models.daos.OAuth2InfoDAO._
 import play.api.libs.concurrent.Execution.Implicits._
 

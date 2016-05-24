@@ -2,27 +2,27 @@ package models.daos
 
 import com.mohiva.play.silhouette.api.LoginInfo
 import com.mohiva.play.silhouette.api.util.PasswordInfo
-import com.mohiva.play.silhouette.impl.daos.DelegableAuthInfoDAO
+import com.mohiva.play.silhouette.persistence.daos.DelegableAuthInfoDAO
 import play.api.libs.concurrent.Execution.Implicits._
 
 import scala.collection.mutable
 import scala.concurrent.Future
-
 import javax.inject.Inject
-import play.api.libs.json._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
-import reactivemongo.api._
+import reactivemongo.api.DB
+import reactivemongo.play.json.collection.JSONCollection
 
+import play.api.libs.json.{ Json, JsObject, OWrites, Writes }
 import play.modules.reactivemongo.json._
-import play.modules.reactivemongo.json.collection._
 
 case class PersistentPasswordInfo(loginInfo: LoginInfo, authInfo: PasswordInfo)
 
 /**
  * The DAO to store the password information.
  */
-class PasswordInfoDAO @Inject() (db : DB) extends DelegableAuthInfoDAO[PasswordInfo] {
+class PasswordInfoDAO @Inject() (db: DB) extends DelegableAuthInfoDAO[PasswordInfo] {
 
   implicit val passwordInfoFormat = Json.format[PasswordInfo]
   implicit val persistentPasswordInfoFormat = Json.format[PersistentPasswordInfo]
@@ -36,15 +36,15 @@ class PasswordInfoDAO @Inject() (db : DB) extends DelegableAuthInfoDAO[PasswordI
    * @return The retrieved auth info or None if no auth info could be retrieved for the given login info.
    */
   def find(loginInfo: LoginInfo) = {
-    
+
     val passwordInfo: Future[Option[PersistentPasswordInfo]] = collection
-      .find(Json.obj( "loginInfo" -> loginInfo ))
+      .find(Json.obj("loginInfo" -> loginInfo))
       .one[PersistentPasswordInfo]
-    
+
     passwordInfo.flatMap {
-      case None => 
+      case None =>
         Future.successful(Option.empty[PasswordInfo])
-      case Some(persistentPasswordInfo) => 
+      case Some(persistentPasswordInfo) =>
         Future(Some(persistentPasswordInfo.authInfo))
     }
 

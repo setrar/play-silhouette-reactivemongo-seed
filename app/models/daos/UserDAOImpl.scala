@@ -20,7 +20,7 @@ import play.modules.reactivemongo.json.collection._
 /**
  * Give access to the user object.
  */
-class UserDAOImpl @Inject() (db : DB) extends UserDAO {
+class UserDAOImpl @Inject() (db: DB) extends UserDAO {
 
   def collection: JSONCollection = db.collection[JSONCollection]("user")
 
@@ -30,8 +30,8 @@ class UserDAOImpl @Inject() (db : DB) extends UserDAO {
    * @param loginInfo The login info of the user to find.
    * @return The found user or None if no user for the given login info could be found.
    */
-  def find(loginInfo: LoginInfo) : Future[Option[User]] = {
-    collection.find(Json.obj( "loginInfo" -> loginInfo )).one[User]
+  def find(loginInfo: LoginInfo): Future[Option[User]] = {
+    collection.find(Json.obj("loginInfo" -> loginInfo)).one[User]
   }
 
   /**
@@ -40,7 +40,7 @@ class UserDAOImpl @Inject() (db : DB) extends UserDAO {
    * @param userID The ID of the user to find.
    * @return The found user or None if no user for the given ID could be found.
    */
-  def find(userID: UUID) : Future[Option[User]] = {
+  def find(userID: UUID): Future[Option[User]] = {
     collection.find(Json.obj("userID" -> userID)).one[User]
   }
 
