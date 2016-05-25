@@ -14,6 +14,8 @@ resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
 
 resolvers += Resolver.sonatypeRepo("snapshots")
 
+resolvers += Resolver.url("Typesafe Ivy releases", url("https://repo.typesafe.com/typesafe/ivy-releases"))(Resolver.ivyStylePatterns)
+
 libraryDependencies ++= Seq(
   "com.mohiva" %% "play-silhouette" % "4.0.0-BETA4",
   "com.mohiva" %% "play-silhouette-persistence-memory" % "4.0.0-BETA4",
